@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huy 6/8 ôn tập</title>
+<style>
+:root{
+  --paper:#f6f7f5;
+  --card:#ffffff;
+  --ink:#152229;
+  --ink-soft:#5a6b74;
+  --line:#dfe4e2;
+  --teal:#00787a;
+  --teal-deep:#04585d;
+  --right:#1c7a4a;
+  --right-bg:#eaf5ee;
+  --wrong:#b03a2b;
+  --wrong-bg:#fbeeeb;
+  --amber:#c8881a;
+  --r:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:780px;margin:0 auto;padding:0 18px 120px}
+button{font:inherit;color:inherit}
+a{color:var(--teal-deep)}
+
+/* ---------- top bar ---------- */
+.bar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(246,247,245,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.bar-in{max-width:780px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px}
+.brand{font-weight:700;letter-spacing:-.01em;font-size:17px;cursor:pointer;white-space:nowrap}
+.brand span{color:var(--teal);font-weight:500}
+.bar-stats{margin-left:auto;display:flex;gap:14px;font-size:13.5px;color:var(--ink-soft);white-space:nowrap}
+.bar-stats b{font-variant-numeric:tabular-nums}
+.s-right b{color:var(--right)}
+.s-wrong b{color:var(--wrong)}
+.track{height:3px;background:var(--line)}
+.track > i{display:block;height:100%;width:0;background:var(--teal);transition:width .35s ease}
+
+/* ---------- setup ---------- */
+.hero{padding:44px 0 26px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.hero h1{font-size:31px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em;font-weight:700}
+.hero p{margin:0;color:var(--ink-soft);max-width:56ch}
+.rule{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.rule div{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:8px 12px;font-size:13.5px;color:var(--ink-soft)
+}
+.rule b{color:var(--ink)}
+
+.overall{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.overall-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.overall-num{font-size:27px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.overall-num i{font-style:normal;color:var(--ink-soft);font-weight:400;font-size:19px}
+.overall-lab{color:var(--ink-soft);font-size:14.5px}
+.overall-pct{margin-left:auto;font-size:14.5px;color:var(--teal-deep);font-variant-numeric:tabular-nums}
+.pbar{height:7px;border-radius:4px;background:#e6ebe9;margin-top:11px;overflow:hidden}
+.pbar > i{display:block;height:100%;background:var(--teal);border-radius:4px;transition:width .4s ease}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.tbtn{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;color:var(--ink-soft)}
+.tbtn:hover{border-color:var(--teal);color:var(--teal-deep)}
+.iobox{width:100%;margin-top:10px;height:96px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;border:1px solid var(--line);border-radius:8px;padding:9px;resize:vertical;background:#fbfcfb;color:var(--ink)}
+.iomsg{margin-top:8px;font-size:13.5px;color:var(--teal-deep)}
+.reset{margin:0;background:none;border:0;padding:0;color:var(--ink-soft);font-size:13px;text-decoration:underline;cursor:pointer}
+.reset:hover{color:var(--wrong)}
+
+.brow{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:12px 14px;margin-bottom:8px;cursor:pointer
+}
+.brow:hover{border-color:#bfcac6}
+.brow.on{border-color:var(--teal);background:#f0f7f6}
+.brow .bn{font-weight:600;font-size:15px}
+.brow .bd{font-size:12.5px;color:var(--ink-soft)}
+.brow .bg{margin-left:auto;text-align:right;min-width:112px}
+.brow .bnum{font-variant-numeric:tabular-nums;font-size:14.5px}
+.brow .bnum b{font-weight:700}
+.brow.full .bnum b{color:var(--right)}
+.brow .bar-mini{height:4px;border-radius:3px;background:#e6ebe9;margin-top:5px;overflow:hidden}
+.brow .bar-mini > i{display:block;height:100%;background:var(--teal);border-radius:3px}
+.subj .bar-mini{height:4px;border-radius:3px;background:#e6ebe9;margin-top:6px;overflow:hidden}
+.subj .bar-mini > i{display:block;height:100%;background:var(--teal);border-radius:3px}
+.subj.full{background:#f2f8f4;border-color:#bcdcc7}
+.subj.full .c{color:var(--right)}
+
+h2.sec{font-size:13.5px;font-weight:600;color:var(--ink-soft);margin:26px 0 10px}
+.subjects{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.subj{
+  display:flex;gap:10px;align-items:flex-start;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:10px 12px;cursor:pointer;transition:border-color .15s,background .15s;
+}
+.subj:hover{border-color:#bfcac6}
+.subj.on{border-color:var(--teal);background:#f0f7f6}
+.subj input{margin:4px 0 0;accent-color:var(--teal);flex:none}
+.subj .n{font-size:14.5px;line-height:1.35}
+.subj .c{display:block;margin-top:2px;font-size:12.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.pickrow{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.mini{
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:5px 13px;font-size:13.5px;cursor:pointer
+}
+.mini:hover{border-color:var(--teal);color:var(--teal-deep)}
+
+.opts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:7px 16px;cursor:pointer;font-variant-numeric:tabular-nums
+}
+.chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.chip input{display:none}
+.toggle{display:flex;align-items:center;gap:9px;font-size:14.5px;color:var(--ink-soft);margin-top:8px;cursor:pointer}
+.toggle input{accent-color:var(--teal)}
+
+.start{
+  margin-top:26px;width:100%;
+  background:var(--teal);color:#fff;border:0;border-radius:var(--r);
+  padding:15px 20px;font-size:16.5px;font-weight:600;cursor:pointer
+}
+.start:hover{background:var(--teal-deep)}
+.start:disabled{background:#c3ccc9;cursor:not-allowed}
+.resume{
+  margin-top:14px;background:#fff9ec;border:1px solid #eddcb6;border-radius:var(--r);
+  padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap
+}
+.resume p{margin:0;flex:1;min-width:200px;font-size:14.5px}
+
+/* ---------- quiz ---------- */
+.roundhead{padding:26px 0 4px}
+.roundhead h2{margin:0;font-size:22px;letter-spacing:-.01em}
+.roundhead p{margin:6px 0 0;color:var(--ink-soft);font-size:14.5px;max-width:60ch}
+
+.q{
+  background:var(--card);border:1px solid var(--line);border-left:3px solid var(--line);
+  border-radius:var(--r);padding:18px 18px 14px;margin-top:14px
+}
+.q.done-right{border-left-color:var(--right)}
+.q.done-wrong{border-left-color:var(--wrong)}
+.q-top{display:flex;gap:10px;align-items:baseline;margin-bottom:9px}
+.q-num{font-size:12.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;flex:none}
+.q-sub{font-size:12.5px;color:var(--ink-soft);margin-left:auto;text-align:right}
+.star{
+  flex:none;background:none;border:0;padding:0 0 0 10px;cursor:pointer;
+  font-size:19px;line-height:1;color:#c7d0cd;transition:color .15s,transform .1s
+}
+.star:hover{color:var(--amber)}
+.star:active{transform:scale(.88)}
+.star.on{color:var(--amber)}
+.brow.star-row .bn::before{content:"★ ";color:var(--amber)}
+.q-text{font-size:16.5px;line-height:1.5;margin:0 0 13px;white-space:pre-wrap}
+.q-multi{font-size:13px;color:var(--amber);margin:-7px 0 11px}
+
+.opt{
+  display:flex;gap:11px;width:100%;text-align:left;
+  background:#fbfcfb;border:1px solid var(--line);border-radius:8px;
+  padding:11px 13px;margin-bottom:7px;cursor:pointer;
+  transition:border-color .12s,background .12s
+}
+.opt:hover{border-color:#a9bcb8;background:#f4f8f6}
+.opt .k{font-weight:700;color:var(--ink-soft);flex:none;min-width:15px}
+.opt.pick{border-color:var(--teal);background:#eef6f5}
+.opt.pick .k{color:var(--teal)}
+.opt.ok{border-color:var(--right);background:var(--right-bg)}
+.opt.ok .k{color:var(--right)}
+.opt.no{border-color:var(--wrong);background:var(--wrong-bg)}
+.opt.no .k{color:var(--wrong)}
+.locked .opt{cursor:default}
+.locked .opt:hover{border-color:var(--line);background:#fbfcfb}
+.locked .opt.ok:hover{border-color:var(--right);background:var(--right-bg)}
+.locked .opt.no:hover{border-color:var(--wrong);background:var(--wrong-bg)}
+
+.reveal{
+  margin-top:4px;background:var(--card);border:1px dashed var(--teal);color:var(--teal-deep);
+  border-radius:8px;padding:9px 18px;font-weight:600;cursor:pointer
+}
+.ans{
+  margin-top:12px;padding:13px 15px;background:#fbfcfb;border:1px solid var(--line);
+  border-left:3px solid var(--teal);border-radius:8px;white-space:pre-wrap;font-size:15px;line-height:1.6
+}
+.ans.empty{color:var(--ink-soft);font-style:italic;border-left-color:var(--amber)}
+.selfrow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.selfrow button{border-radius:8px;padding:9px 18px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--card)}
+.self-ok{border-color:var(--right)!important;color:var(--right)}
+.self-ok:hover{background:var(--right-bg)}
+.self-no{border-color:var(--wrong)!important;color:var(--wrong)}
+.self-no:hover{background:var(--wrong-bg)}
+.check{
+  margin-top:4px;background:var(--card);border:1px solid var(--teal);color:var(--teal-deep);
+  border-radius:8px;padding:9px 18px;font-weight:600;cursor:pointer
+}
+.check:disabled{border-color:var(--line);color:#a8b3b0;cursor:not-allowed}
+
+.verdict{margin-top:11px;padding-top:11px;border-top:1px dashed var(--line);font-size:15px}
+.verdict .tag{font-weight:700}
+.verdict.r .tag{color:var(--right)}
+.verdict.w .tag{color:var(--wrong)}
+.verdict .why{margin:6px 0 0;color:var(--ink-soft);white-space:pre-wrap}
+
+/* ---------- footer action ---------- */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  background:rgba(246,247,245,.95);backdrop-filter:blur(8px);
+  border-top:1px solid var(--line);
+  transform:translateY(105%);transition:transform .25s ease
+}
+.dock.show{transform:none}
+.dock-in{max-width:780px;margin:0 auto;padding:12px 18px;display:flex;gap:12px;align-items:center}
+.dock p{margin:0;flex:1;font-size:14.5px;color:var(--ink-soft)}
+.dock p b{color:var(--ink)}
+.dock button{
+  background:var(--teal);color:#fff;border:0;border-radius:8px;
+  padding:11px 20px;font-weight:600;cursor:pointer;white-space:nowrap
+}
+.dock button:hover{background:var(--teal-deep)}
+.ghost{background:transparent!important;color:var(--ink-soft)!important;border:1px solid var(--line)!important}
+.ghost:hover{color:var(--ink)!important;border-color:#bfcac6!important}
+
+/* ---------- done ---------- */
+.done{padding:56px 0 20px;text-align:center}
+.done .mark{font-size:44px;line-height:1;margin-bottom:14px}
+.done h2{margin:0 0 8px;font-size:26px}
+.done p{margin:0 auto;color:var(--ink-soft);max-width:46ch}
+.tally{display:flex;justify-content:center;gap:26px;margin:24px 0 28px;flex-wrap:wrap}
+.tally div{min-width:96px}
+.tally b{display:block;font-size:25px;font-variant-numeric:tabular-nums}
+.tally span{font-size:13px;color:var(--ink-soft)}
+.done-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.done-btns button{border:0;border-radius:8px;padding:12px 22px;font-weight:600;cursor:pointer;background:var(--teal);color:#fff}
+
+.hard{margin-top:34px;text-align:left}
+.hard h3{font-size:14px;color:var(--ink-soft);font-weight:600;margin:0 0 10px}
+.hard li{margin-bottom:7px;font-size:14.5px;color:var(--ink-soft)}
+.hidden{display:none}
+@media(max-width:560px){
+  .hero h1{font-size:25px}
+  .bar-stats{font-size:12.5px;gap:10px}
+  .brand{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="brand" id="brand">Huy 6/8 ôn tập <span id="brandSub"></span></div>
+    <div class="bar-stats hidden" id="barStats">
+      <div class="s-left">Còn <b id="stLeft">0</b></div>
+      <div class="s-right">Đúng <b id="stRight">0</b></div>
+      <div class="s-wrong">Chờ ôn lại <b id="stWrong">0</b></div>
+    </div>
+  </div>
+  <div class="track"><i id="track"></i></div>
+</div>
+
+<div class="wrap">
+
+  <!-- SETUP -->
+  <section id="setup">
+    <div class="hero">
+      <h1>Ôn đến khi đúng hết thì thôi</h1>
+      <p>Mỗi lượt lấy 20 câu. Câu nào trả lời đúng thì loại khỏi lượt, câu nào sai sẽ quay lại ở vòng sau — lặp cho tới khi sạch hàng đợi.</p>
+      <div class="rule">
+        <div><b id="nQ">0</b> câu hỏi</div>
+        <div><b id="nS">0</b> chuyên đề</div>
+        <div>Tiến độ được lưu trên máy này</div>
+      </div>
+
+      <div class="overall">
+        <div class="overall-top">
+          <span class="overall-num" id="ovNum">0<i>/0</i></span>
+          <span class="overall-lab" id="ovLab">câu đã thuộc</span>
+          <span class="overall-pct" id="ovPct">0%</span>
+        </div>
+        <div class="pbar"><i id="ovBar"></i></div>
+        <div class="tools">
+          <button class="tbtn" id="btnMarkAll">Đánh dấu cả đợt này là đã thuộc</button>
+          <button class="tbtn" id="btnExport">Xuất tiến độ</button>
+          <button class="tbtn" id="btnImport">Nhập tiến độ</button>
+          <button class="reset" id="btnReset">Đặt lại tiến độ</button>
+        </div>
+        <textarea id="ioBox" class="iobox hidden" spellcheck="false"></textarea>
+        <div id="ioMsg" class="iomsg hidden"></div>
+      </div>
+    </div>
+
+    <div id="resumeBox" class="resume hidden">
+      <p id="resumeText"></p>
+      <button class="mini" id="btnResume">Học tiếp</button>
+      <button class="mini" id="btnDrop">Bỏ, làm lượt mới</button>
+    </div>
+
+    <h2 class="sec">Đợt ôn</h2>
+    <div id="batches"></div>
+
+    <h2 class="sec">Chuyên đề</h2>
+    <div class="pickrow">
+      <button class="mini" id="pickAll">Chọn tất cả</button>
+      <button class="mini" id="pickNone">Bỏ chọn</button>
+      <button class="mini hidden" id="pickNgoai">Kiến thức ngoài ngành</button>
+      <button class="mini hidden" id="pickNoi">Nghiệp vụ BIDV</button>
+    </div>
+    <div class="subjects" id="subjects"></div>
+
+    <h2 class="sec">Số câu mỗi lượt</h2>
+    <div class="opts" id="sizes"></div>
+
+    <label class="toggle"><input type="checkbox" id="optShuffle" checked> Xáo trộn thứ tự đáp án A/B/C/D</label>
+    <label class="toggle"><input type="checkbox" id="optFresh" checked> Chỉ lấy câu chưa thuộc (bỏ qua câu đã thuộc)</label>
+
+    <button class="start" id="btnStart">Bắt đầu ôn</button>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="hidden">
+    <div class="roundhead">
+      <h2 id="roundTitle">Vòng 1</h2>
+      <p id="roundNote"></p>
+    </div>
+    <div id="qlist"></div>
+  </section>
+
+  <!-- DONE -->
+  <section id="done" class="hidden">
+    <div class="done">
+      <div class="mark">✓</div>
+      <h2>Xong bài ôn</h2>
+      <p id="doneNote"></p>
+      <div class="tally">
+        <div><b id="tQ">0</b><span>câu trong lượt</span></div>
+        <div><b id="tR">0</b><span>vòng đã qua</span></div>
+        <div><b id="tW">0</b><span>lượt trả lời sai</span></div>
+      </div>
+      <div class="done-btns">
+        <button id="btnAgain">Lượt mới</button>
+        <button id="btnHome" class="ghost">Đổi chuyên đề</button>
+      </div>
+      <div class="hard hidden" id="hardBox">
+        <h3>Những câu bạn phải làm lại</h3>
+        <ol id="hardList"></ol>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="dock" id="dock">
+  <div class="dock-in">
+    <p id="dockText"></p>
+    <button id="dockGhost" class="ghost hidden">Về đầu</button>
+    <button id="dockBtn">Tiếp</button>
+  </div>
+</div>
+
+<script>
+// Ôn tập: TRUYỀN THỐNG GIA ĐÌNH, DÒNG HỌ (GDCD lớp 5)
+// 40 câu trắc nghiệm, chia 2 chủ đề:
+//   - "Tình huống" (câu 1–25): tình huống trong bài, bài tập Luyện tập – Vận dụng, tình huống mới
+//   - "Ghi nhớ"    (câu 26–40): ôn thuộc phần ghi nhớ (đoạn tô vàng); câu 26–33 dạng điền vào chỗ trống
+// answer = chỉ số đáp án đúng (0 = A, 1 = B, 2 = C, 3 = D)
+
+const QUIZ_TRUYEN_THONG = {
+  title: "Truyền thống gia đình, dòng họ",
+  topics: [
+  {
+    "name": "Tình huống",
+    "questions": [
+      {
+        "id": 1,
+        "q": "Dòng họ Đặng ở Sơn La có truyền thống gì nổi bật?",
+        "options": [
+          "Làm đồ chơi Trung thu",
+          "Hiếu học",
+          "Chơi đàn bầu",
+          "Buôn bán giỏi"
+        ],
+        "answer": 1,
+        "explain": "Các gia đình trong dòng họ Đặng luôn chăm lo việc học của con em, nhiều người thành cán bộ đóng góp cho quê hương.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 2,
+        "q": "Mỗi khi gặp khó khăn trong học tập, bạn Dung nhớ tới ai để có thêm động lực?",
+        "options": [
+          "Cô giáo chủ nhiệm",
+          "Bạn thân cùng lớp",
+          "Ông ngoại và bố mẹ",
+          "Anh trai"
+        ],
+        "answer": 2,
+        "explain": "Dung tự hào về tinh thần lao động chăm chỉ, không ngại khó của ông ngoại và bố mẹ.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 3,
+        "q": "Việc tự hào về truyền thống gia đình đã giúp Dung điều gì?",
+        "options": [
+          "Có động lực để tiếp tục học tập tốt dù ở xa nhà",
+          "Được bố mẹ cho nhiều tiền tiêu vặt",
+          "Không cần cố gắng vì gia đình đã giỏi sẵn",
+          "Được về quê chơi thường xuyên"
+        ],
+        "answer": 0,
+        "explain": "Tự hào về truyền thống giúp ta có thêm sức mạnh vượt qua khó khăn.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 4,
+        "q": "Gia phong “kính trên, nhường dưới”, “uống nước nhớ nguồn” đã mang lại điều gì cho gia đình Nam?",
+        "options": [
+          "Mọi người sống riêng, ít nói chuyện",
+          "Gia đình đoàn kết, vui vẻ, đầm ấm",
+          "Mọi thế hệ phải suy nghĩ giống hệt nhau",
+          "Gia đình trở nên giàu có"
+        ],
+        "answer": 1,
+        "explain": "Dù mỗi thế hệ có nếp nghĩ khác nhau, mọi người biết chia sẻ, lắng nghe, tôn trọng nhau nên gia đình luôn đầm ấm.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 5,
+        "q": "Sáng mùng một Tết, cả nhà Linh cùng đi chúc Tết ông bà, họ hàng. Việc làm này sẽ khiến người thân cảm thấy thế nào?",
+        "options": [
+          "Mệt mỏi, phiền phức",
+          "Buồn và cô đơn",
+          "Vui vẻ, ấm áp, hạnh phúc",
+          "Không có cảm xúc gì"
+        ],
+        "answer": 2,
+        "explain": "Sum họp, chúc Tết thể hiện sự quan tâm, kính trọng, làm ông bà và người thân rất vui.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 6,
+        "q": "Bạn An mong muốn giới thiệu tiếng đàn bầu Việt Nam với bạn bè trong nước và quốc tế. Em nhận xét gì về mong muốn đó?",
+        "options": [
+          "Không cần thiết vì đàn bầu đã cũ",
+          "Đáng khen, vừa giữ nghề của gia đình vừa quảng bá văn hóa dân tộc",
+          "Chỉ nên chơi đàn cho gia đình nghe",
+          "An nên bỏ đàn bầu để học nhạc cụ nước ngoài"
+        ],
+        "answer": 1,
+        "explain": "An vừa phát huy truyền thống gia đình vừa góp phần làm phong phú bản sắc dân tộc.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 7,
+        "q": "Từ việc làm của Linh và An, để giữ gìn truyền thống gia đình, mỗi người cần:",
+        "options": [
+          "Chỉ cần nghe kể về truyền thống là đủ",
+          "Tìm hiểu, tự hào và có việc làm phù hợp với khả năng để phát huy truyền thống",
+          "Chờ lớn lên mới cần quan tâm",
+          "Để việc đó cho ông bà, bố mẹ lo"
+        ],
+        "answer": 1,
+        "topic": "Tình huống"
+      },
+      {
+        "id": 8,
+        "q": "Dòng họ Nguyễn Huy có truyền thống hiếu học. Năm nay Bình không được nhận thưởng vì kết quả học tập chưa cao. Bình nên làm gì?",
+        "options": [
+          "Buồn bã, bỏ không học nữa",
+          "Trách dòng họ không công bằng",
+          "Coi đó là động lực, lập kế hoạch học tập chăm chỉ hơn",
+          "Nói dối điểm số để được thưởng"
+        ],
+        "answer": 2,
+        "explain": "Phát huy truyền thống hiếu học bằng chính nỗ lực học tập của mình.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 9,
+        "q": "Có người khuyên Hải không nên theo nghề làm đồ chơi Trung thu của gia đình vì vất vả, lỗi thời. Nếu là Hải, em sẽ nói gì?",
+        "options": [
+          "Đồng ý và bỏ nghề ngay",
+          "Nghề truyền thống rất quý, em sẽ học hỏi và sáng tạo thêm để nghề phù hợp với thời nay",
+          "Không trả lời và giận người đó",
+          "Nói rằng nghề nào cũng vất vả nên không làm nghề gì cả"
+        ],
+        "answer": 1,
+        "topic": "Tình huống"
+      },
+      {
+        "id": 10,
+        "q": "Tuấn muốn làm doanh nhân dù gia đình có truyền thống yêu nước (ông là lão thành cách mạng, bố trong quân đội). Ý kiến nào đúng?",
+        "options": [
+          "Tùng đúng: Tuấn bắt buộc phải vào quân đội mới là tiếp nối truyền thống",
+          "Tuấn đúng: làm công việc gì có đóng góp cho đất nước cũng là tiếp nối truyền thống yêu nước",
+          "Cả hai đều sai",
+          "Truyền thống yêu nước chỉ dành cho người lớn tuổi"
+        ],
+        "answer": 1,
+        "explain": "Yêu nước có thể thể hiện ở mọi nghề nghiệp, miễn là đóng góp cho đất nước.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 11,
+        "q": "Ý kiến nào sau đây là SAI?",
+        "options": [
+          "Lao động cần cù, chăm chỉ là một nét đẹp của truyền thống gia đình, dòng họ",
+          "Giữ gìn truyền thống gia đình là thể hiện lòng biết ơn ông bà, tổ tiên",
+          "Chỉ những gia đình, dòng họ giàu mới có truyền thống đáng tự hào",
+          "Gia đình nào cũng có thể có truyền thống tốt đẹp"
+        ],
+        "answer": 2,
+        "explain": "Truyền thống tốt đẹp không phụ thuộc vào giàu hay nghèo.",
+        "topic": "Tình huống"
+      },
+      {
+        "id": 12,
+        "q": "Nhà Mai có truyền thống làm bánh chưng ngày Tết. Năm nay Mai được bà dạy gói bánh. Việc làm nào thể hiện Mai giữ gìn truyền thống?",
+        "options": [
+          "Bảo bà mua bánh ở chợ cho nhanh",
+          "Chăm chú học gói bánh và rủ em cùng tham gia",
+          "Chỉ đứng xem rồi đi chơi điện thoại",
+          "Chê gói bánh là việc của người lớn"
+        ],
+        "answer": 1,
+        "topic": "Tình huống"
+      },
+      {
+        "id": 13,
+        "q": "Gia đình Phong có truyền thống hiếu thảo. Bà nội Phong bị ốm. Phong nên làm gì?",
+        "options": [
+          "Hỏi thăm, rót nước, giúp bố mẹ chăm sóc bà",
+          "Bật ti vi to để bà đỡ buồn",
+          "Để bố mẹ lo, mình đi chơi",
+          "Không vào phòng bà vì sợ lây"
+        ],
+        "answer": 0,
+        "topic": "Tình huống"
+      },
+      {
+        "id": 14,
+        "q": "Bạn Hùng chê: “Nhà cậu làm nghề đan tre, quê lắm!”. Là bạn Lan (con nhà làm nghề đan tre), cách ứng xử nào phù hợp nhất?",
+        "options": [
+          "Xấu hổ và giấu nghề của gia đình",
+          "Cãi nhau với Hùng",
+          "Bình tĩnh giới thiệu nghề đan tre là nghề truyền thống khéo léo, đáng tự hào",
+          "Bỏ về không nói gì"
+        ],
+        "answer": 2,
+        "topic": "Tình huống"
+      },
+      {
+        "id": 15,
+        "q": "Việc làm nào KHÔNG góp phần phát huy truyền thống gia đình, dòng họ?",
+        "options": [
+          "Hỏi ông bà về lịch sử dòng họ",
+          "Tham gia ngày giỗ tổ, họp mặt dòng họ",
+          "Chăm chỉ học tập, lễ phép với người lớn",
+          "Khoe khoang thành tích dòng họ để coi thường người khác"
+        ],
+        "answer": 3,
+        "explain": "Tự hào đúng cách là cố gắng noi theo, không phải để khoe khoang, coi thường người khác.",
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Chi tiết nào cho thấy dòng họ Đặng ở Sơn La có truyền thống hiếu học?",
+        "options": [
+          "Dòng họ có nhiều ruộng đất",
+          "Trẻ em đến tuổi đều được tới trường, nhiều em đạt thành tích cao trong học tập",
+          "Dòng họ nổi tiếng làm đồ chơi Trung thu",
+          "Các gia đình trong họ sống chung một nhà"
+        ],
+        "answer": 1,
+        "explain": "Các gia đình luôn quan tâm, chăm lo việc học hành của con em mình.",
+        "id": 16,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Con cháu dòng họ Đặng có thái độ như thế nào đối với truyền thống hiếu học của dòng họ?",
+        "options": [
+          "Thờ ơ, không quan tâm",
+          "Chỉ khoe với người khác",
+          "Tự hào và không ngừng phát huy truyền thống",
+          "Cho rằng truyền thống đã lỗi thời"
+        ],
+        "answer": 2,
+        "id": 17,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Trường hợp của bạn Dung cho thấy truyền thống gia đình có ý nghĩa gì đối với MỖI CÁ NHÂN?",
+        "options": [
+          "Giúp có thêm động lực, sức mạnh để vượt qua khó khăn",
+          "Giúp không cần phải cố gắng nữa",
+          "Giúp được mọi người khen ngợi",
+          "Không có ý nghĩa gì"
+        ],
+        "answer": 0,
+        "id": 18,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Trường hợp gia đình bạn Nam cho thấy truyền thống có ý nghĩa gì đối với GIA ĐÌNH?",
+        "options": [
+          "Làm các thành viên xa cách nhau",
+          "Giúp gia đình gắn kết, đoàn kết, yêu thương, đầm ấm",
+          "Bắt mọi người phải sống giống nhau",
+          "Giúp gia đình có nhiều tiền"
+        ],
+        "answer": 1,
+        "id": 19,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Nhiều người trong dòng họ Đặng trở thành cán bộ, góp phần xây dựng và bảo vệ quê hương, đất nước. Điều đó cho thấy truyền thống gia đình, dòng họ có ý nghĩa gì đối với XÃ HỘI?",
+        "options": [
+          "Chỉ có ích cho riêng dòng họ đó",
+          "Góp phần tạo ra những người tốt, có ích cho quê hương, đất nước",
+          "Làm cho dòng họ nổi tiếng hơn dòng họ khác",
+          "Không liên quan đến xã hội"
+        ],
+        "answer": 1,
+        "id": 20,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Em đồng tình với ý kiến “Lao động cần cù, chăm chỉ là một nét đẹp của truyền thống gia đình, dòng họ” vì:",
+        "options": [
+          "Nhờ cần cù, chăm chỉ, ông bà, cha mẹ đã vượt khó, xây dựng cuộc sống tốt đẹp cho con cháu (như ông ngoại của Dung)",
+          "Vì lao động làm cho người ta mệt",
+          "Vì chỉ người nghèo mới cần lao động",
+          "Vì lao động giúp khoe khoang với hàng xóm"
+        ],
+        "answer": 0,
+        "id": 21,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Em đồng tình với ý kiến “Giữ gìn truyền thống tốt đẹp của gia đình, dòng họ là thể hiện lòng trân trọng và biết ơn với cha mẹ, ông bà, tổ tiên” vì:",
+        "options": [
+          "Truyền thống là do bạn bè tạo ra",
+          "Truyền thống do ông bà, tổ tiên gây dựng và truyền lại cho con cháu",
+          "Giữ truyền thống giúp được nhận quà",
+          "Ông bà bắt buộc con cháu phải làm vậy"
+        ],
+        "answer": 1,
+        "explain": "Đây là ý b trong bài Luyện tập 1 — cùng với ý a là ý kiến đúng; ý c là ý kiến sai.",
+        "id": 22,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Tuấn muốn trở thành doanh nhân. Việc làm nào giúp Tuấn vẫn tiếp nối truyền thống yêu nước của gia đình?",
+        "options": [
+          "Kinh doanh gian dối để nhanh giàu",
+          "Kinh doanh trung thực, tạo việc làm cho người lao động, đóng góp cho đất nước",
+          "Chỉ lo kiếm tiền cho bản thân",
+          "Bỏ không quan tâm đến quê hương"
+        ],
+        "answer": 1,
+        "id": 23,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Khi viết thư cho ông bà, bố mẹ (phần Vận dụng), nội dung nào PHÙ HỢP nhất?",
+        "options": [
+          "Kể về trò chơi điện tử em thích",
+          "Xin ông bà cho tiền mua đồ",
+          "Nói lên niềm tự hào về truyền thống gia đình và những việc cụ thể em sẽ làm để phát huy",
+          "Kể về truyền thống của gia đình bạn bè"
+        ],
+        "answer": 2,
+        "id": 24,
+        "topic": "Tình huống"
+      },
+      {
+        "q": "Khi lập kế hoạch giữ gìn, phát huy truyền thống (phần Vận dụng), cặp nào ghép ĐÚNG “Tên truyền thống – Cách giữ gìn và phát huy”?",
+        "options": [
+          "Hiếu học – Thức khuya chơi điện thoại",
+          "Hiếu thảo – Vâng lời, giúp đỡ, chăm sóc ông bà, bố mẹ",
+          "Giữ nghề truyền thống – Chê nghề của gia đình vất vả",
+          "Yêu nước – Không quan tâm đến lịch sử dân tộc"
+        ],
+        "answer": 1,
+        "id": 25,
+        "topic": "Tình huống"
+      }
+    ]
+  },
+  {
+    "name": "Ghi nhớ",
+    "questions": [
+      {
+        "id": 26,
+        "q": "Nhiều gia đình, dòng họ Việt Nam có truyền thống tốt đẹp về: ______, yêu thương con người, hiếu thảo, hiếu học,...",
+        "options": [
+          "yêu nước",
+          "giàu có",
+          "du lịch",
+          "thể thao"
+        ],
+        "answer": 0,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 27,
+        "q": "Nhiều gia đình, dòng họ Việt Nam có truyền thống tốt đẹp về: yêu nước, yêu thương con người, ______, hiếu học, cần cù lao động,...",
+        "options": [
+          "hiếu động",
+          "hiếu thảo",
+          "hiếu thắng",
+          "hiếu kì"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 28,
+        "q": "... hiếu thảo, hiếu học, ______ lao động, giữ nghề truyền thống,...",
+        "options": [
+          "lười biếng",
+          "ngại ngùng",
+          "cần cù",
+          "vội vàng"
+        ],
+        "answer": 2,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 29,
+        "q": "... cần cù lao động, giữ ______,...",
+        "options": [
+          "nghề truyền thống",
+          "tiền bạc",
+          "đồ chơi",
+          "bí mật"
+        ],
+        "answer": 0,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 30,
+        "q": "Hiểu biết và ______ về truyền thống gia đình, dòng họ giúp ta có thêm kinh nghiệm và sức mạnh trong cuộc sống.",
+        "options": [
+          "lo lắng",
+          "tự hào",
+          "khoe khoang",
+          "quên lãng"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 31,
+        "q": "Hiểu biết và tự hào về truyền thống gia đình, dòng họ giúp ta có thêm ______ và sức mạnh trong cuộc sống.",
+        "options": [
+          "tiền bạc",
+          "kinh nghiệm",
+          "đồ dùng",
+          "bạn bè"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 32,
+        "q": "... góp phần làm phong phú truyền thống, ______ dân tộc Việt Nam.",
+        "options": [
+          "bản sắc",
+          "diện tích",
+          "dân số",
+          "kinh tế"
+        ],
+        "answer": 0,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 33,
+        "q": "Chúng ta cần tìm hiểu để tự hào về truyền thống gia đình, dòng họ mình; từ đó, có những việc làm phù hợp với ______ để phát huy truyền thống.",
+        "options": [
+          "sở thích",
+          "khả năng",
+          "tuổi tác của ông bà",
+          "ý muốn của bạn bè"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 34,
+        "q": "Truyền thống nào KHÔNG được nêu trong phần ghi nhớ?",
+        "options": [
+          "Yêu nước",
+          "Hiếu học",
+          "Buôn bán làm giàu",
+          "Giữ nghề truyền thống"
+        ],
+        "answer": 2,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 35,
+        "q": "Dãy nào gồm toàn các truyền thống tốt đẹp của gia đình, dòng họ Việt Nam?",
+        "options": [
+          "Yêu nước, hiếu thảo, hiếu học",
+          "Hiếu học, ích kỉ, cần cù",
+          "Lười biếng, yêu thương con người, hiếu thảo",
+          "Khoe khoang, yêu nước, giữ nghề"
+        ],
+        "answer": 0,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 36,
+        "q": "Hiểu biết và tự hào về truyền thống gia đình, dòng họ giúp ta có thêm những gì trong cuộc sống?",
+        "options": [
+          "Tiền bạc và danh tiếng",
+          "Kinh nghiệm và sức mạnh",
+          "Đồ chơi và quần áo",
+          "Nhà cửa và đất đai"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 37,
+        "q": "Truyền thống gia đình, dòng họ góp phần làm phong phú điều gì?",
+        "options": [
+          "Truyền thống, bản sắc dân tộc Việt Nam",
+          "Tài sản của dòng họ",
+          "Số lượng thành viên trong họ",
+          "Món ăn ngày Tết"
+        ],
+        "answer": 0,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 38,
+        "q": "Để tự hào về truyền thống gia đình, dòng họ, trước hết chúng ta cần làm gì?",
+        "options": [
+          "Khoe với bạn bè",
+          "Tìm hiểu về truyền thống đó",
+          "Đợi người lớn kể",
+          "Ghi vào vở rồi quên"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 39,
+        "q": "Theo phần ghi nhớ, việc làm để phát huy truyền thống cần như thế nào?",
+        "options": [
+          "Thật lớn lao, giống hệt người lớn",
+          "Phù hợp với khả năng của bản thân",
+          "Chỉ làm khi được khen thưởng",
+          "Làm thay cho người khác"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      },
+      {
+        "id": 40,
+        "q": "Phần ghi nhớ gồm mấy ý chính?",
+        "options": [
+          "2 ý: truyền thống là gì và cách khoe truyền thống",
+          "3 ý: các truyền thống tốt đẹp – ý nghĩa của truyền thống – việc chúng ta cần làm",
+          "4 ý: yêu nước – hiếu học – hiếu thảo – giữ nghề",
+          "1 ý: chỉ nói về truyền thống hiếu học"
+        ],
+        "answer": 1,
+        "topic": "Ghi nhớ"
+      }
+    ]
+  }
+]
+};
+
+// Danh sách phẳng tất cả câu hỏi (mỗi câu có trường "topic")
+QUIZ_TRUYEN_THONG.questions = QUIZ_TRUYEN_THONG.topics.flatMap(t => t.questions);
+
+if (typeof window !== "undefined") window.QUIZ_TRUYEN_THONG = QUIZ_TRUYEN_THONG;
+if (typeof module !== "undefined" && module.exports) module.exports = QUIZ_TRUYEN_THONG;
+
+</script>
+<script>
+/* Chuyển bộ câu hỏi từ on-tap-truyen-thong-gia-dinh.js sang định dạng của app */
+(function () {
+  var Q = window.QUIZ_TRUYEN_THONG;
+  var D = window.LDQL_DATA = { subjects: [], questions: [], batches: [] };
+  if (!Q) { console.warn("Không tìm thấy on-tap-truyen-thong-gia-dinh.js"); return; }
+  var L = ["A", "B", "C", "D"];
+  D.batches.push({ id: 1, name: Q.title, note: "GDCD 5 – " + Q.questions.length + " câu" });
+  Q.topics.forEach(function (t, k) {
+    var sid = "tt-" + (k + 1);
+    D.subjects.push({ id: sid, name: t.name, group: "", desc: t.questions.length + " câu" });
+    t.questions.forEach(function (x) {
+      D.questions.push({
+        i: D.questions.length, s: sid, b: 1, d: 1, w: 0,
+        q: x.q,
+        o: x.options.map(function (o, j) { return [L[j], o]; }),
+        a: [L[x.answer]],
+        e: x.explain || ""
+      });
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var DATA = window.LDQL_DATA || {subjects:[],questions:[]};
+var SUBJ = {}, SUBNAME = {};
+DATA.subjects.forEach(function(s){ SUBJ[s.id]=s; SUBNAME[s.id]=s.name; });
+
+/* ---------- storage (an toàn khi bị chặn) ---------- */
+var mem = {};
+var LS = (function(){
+  try { var k="__t"; localStorage.setItem(k,"1"); localStorage.removeItem(k); return localStorage; }
+  catch(e){ return { getItem:function(k){return k in mem?mem[k]:null;},
+                     setItem:function(k,v){mem[k]=String(v);},
+                     removeItem:function(k){delete mem[k];} }; }
+})();
+var K_STATE="huy68.session", K_HIST="huy68.history", K_PREF="huy68.prefs", K_STAR="huy68.starred";
+function load(k,d){ try{ var v=LS.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } }
+function save(k,v){ try{ LS.setItem(k,JSON.stringify(v)); }catch(e){} }
+
+var hist = load(K_HIST,{});   // key -> {seen, wrong, ok, m}
+
+/* Khoá tiến độ theo NỘI DUNG câu hỏi, không theo số thứ tự,
+   để thêm/sắp xếp lại câu hỏi không làm hỏng tiến độ cũ. */
+function qhash(q){
+  var t = (q.q||"").replace(/\s+/g," ").trim().toLowerCase();
+  var h1=5381, h2=52711, i=t.length;
+  while(i--){ var c=t.charCodeAt(i); h1=(h1*33 ^ c)>>>0; h2=(h2*33 ^ c)>>>0; }
+  return h1.toString(36)+h2.toString(36);
+}
+function bOf(q){ return q.b||1; }
+function bName(id){ var b=(DATA.batches||[]).filter(function(x){return x.id===id;})[0]; return b?b.name:("Đợt "+id); }
+function bTag(q){ return (DATA.batches&&DATA.batches.length>1) ? " · "+esc(bName(bOf(q))) : ""; }
+function hkey(q){ return "b"+bOf(q)+":q"+qhash(q); }
+(function migrate(){
+  if(hist.__v==="3") return;
+  var out={__v:"3"};
+  DATA.questions.forEach(function(q){
+    var prev = (hist.__v==="2") ? hist["q"+qhash(q)] : hist[q.i];
+    if(prev && typeof prev==="object") out[hkey(q)]=prev;
+  });
+  for(var k in hist){ if(k.indexOf(":q")>0) out[k]=hist[k]; }
+  hist=out; save(K_HIST,hist);
+})();
+
+var starred = load(K_STAR,{});
+function isStar(q){ return !!starred[hkey(q)]; }
+function toggleStar(q){
+  var k=hkey(q);
+  if(starred[k]) delete starred[k]; else starred[k]=1;
+  save(K_STAR,starred);
+  return !!starred[k];
+}
+function starCount(){ var n=0; for(var k in starred) n++; return n; }
+
+var prefs = load(K_PREF,{subs:null,size:20,shuffle:true,fresh:true,batch:"all"});
+
+/* ---------- helpers ---------- */
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+function plural(n,w){ return n+" "+w; }
+
+/* ---------- setup screen ---------- */
+var BATCHES = (DATA.batches && DATA.batches.length) ? DATA.batches : [{id:1,name:"Đợt 1"}];
+var activeB = prefs.batch===undefined ? "all" : prefs.batch;
+if(activeB!=="all" && !BATCHES.some(function(b){return b.id===activeB;})) activeB="all";
+
+var chosen = {};
+var SUBEL = {};
+
+function isMastered(q){ var h=hist[hkey(q)]; return !!(h && h.m); }
+function inB(q){ if(activeB==="star") return isStar(q); return activeB==="all" || bOf(q)===activeB; }
+function qOfBatch(b){
+  if(b==="star") return DATA.questions.filter(isStar);
+  return DATA.questions.filter(function(q){ return b==="all" || bOf(q)===b; });
+}
+function tally(list){
+  var m=0; list.forEach(function(q){ if(isMastered(q)) m++; });
+  return {n:list.length, m:m};
+}
+
+/* ----- đợt ----- */
+function renderBatches(){
+  var box=$("batches"); box.innerHTML="";
+  var rows=[];
+  if(BATCHES.length>1) rows.push({id:"all",name:"Tất cả các đợt",note:""});
+  BATCHES.forEach(function(b){ rows.push({id:b.id,name:b.name,note:b.note||""}); });
+  var sc=starCount();
+  if(sc || activeB==="star") rows.push({id:"star",name:"Các câu lưu ý",note:"Những câu bạn đã đánh dấu sao để xem lại"});
+  rows.forEach(function(r){
+    var t=tally(qOfBatch(r.id));
+    var el=document.createElement("button");
+    el.type="button";
+    el.className="brow"+(r.id===activeB?" on":"")+(t.n&&t.m===t.n?" full":"")+(r.id==="star"?" star-row":"");
+    el.innerHTML='<span><span class="bn">'+esc(r.name)+'</span>'+
+      (r.note?'<br><span class="bd">'+esc(r.note)+'</span>':'')+'</span>'+
+      '<span class="bg"><span class="bnum">đã thuộc <b>'+t.m+'/'+t.n+'</b></span>'+
+      '<span class="bar-mini"><i style="width:'+(t.n?t.m/t.n*100:0)+'%"></i></span></span>';
+    el.onclick=function(){
+      activeB=r.id;
+      prefs.batch=activeB; save(K_PREF,prefs);
+      renderBatches(); renderSubjects(); refreshStart();
+    };
+    box.appendChild(el);
+  });
+
+}
+
+/* ----- chuyên đề (lọc theo đợt đang chọn) ----- */
+function renderSubjects(){
+  var counts={};
+  DATA.questions.forEach(function(q){ if(inB(q)) counts[q.s]=(counts[q.s]||0)+1; });
+  var box=$("subjects"); box.innerHTML=""; SUBEL={};
+  DATA.subjects.forEach(function(s2){
+    if(!counts[s2.id]) return;
+    if(!(s2.id in chosen)) chosen[s2.id] = prefs.subs ? prefs.subs.indexOf(s2.id)>=0 : true;
+    var on=chosen[s2.id];
+    var el=document.createElement("label");
+    el.className="subj"+(on?" on":"");
+    el.innerHTML='<input type="checkbox" '+(on?"checked":"")+'>'+
+      '<span style="flex:1"><span class="n">'+esc(s2.name)+'</span>'+
+      '<span class="c" data-c></span>'+
+      '<span class="bar-mini"><i></i></span></span>';
+    el.querySelector("input").addEventListener("change",function(e){
+      chosen[s2.id]=e.target.checked; el.classList.toggle("on",e.target.checked); refreshStart();
+    });
+    el.dataset.group=s2.group||""; el.dataset.id=s2.id;
+    SUBEL[s2.id]=el; box.appendChild(el);
+  });
+  $("nQ").textContent=DATA.questions.length;
+  $("nS").textContent=DATA.subjects.length;
+}
+
+function refreshProgress(){
+  var shown=qOfBatch(activeB), tot=tally(shown);
+  DATA.subjects.forEach(function(s2){
+    var el=SUBEL[s2.id]; if(!el) return;
+    var t=tally(shown.filter(function(q){ return q.s===s2.id; }));
+    el.querySelector("[data-c]").textContent = t.m+"/"+t.n+" đã thuộc";
+    el.querySelector(".bar-mini > i").style.width=(t.n? t.m/t.n*100:0)+"%";
+    el.classList.toggle("full", t.n>0 && t.m===t.n);
+  });
+  $("ovNum").innerHTML = tot.m+"<i>/"+tot.n+"</i>";
+  $("ovPct").textContent=(tot.n? Math.round(tot.m/tot.n*100):0)+"%";
+  $("ovBar").style.width=(tot.n? tot.m/tot.n*100:0)+"%";
+  var lab = activeB==="all" ? "câu đã thuộc (tất cả các đợt)"
+    : "câu đã thuộc — "+(BATCHES.filter(function(b){return b.id===activeB;})[0]||{}).name;
+  $("ovLab").textContent=lab;
+  renderBatches();
+}
+
+renderBatches();
+renderSubjects();
+
+function setAll(fn){
+  [].forEach.call(document.querySelectorAll(".subj"),function(el){
+    var v=fn(el.dataset.group,el.dataset.id);
+    el.querySelector("input").checked=v; el.classList.toggle("on",v); chosen[el.dataset.id]=v;
+  });
+  refreshStart();
+}
+$("pickAll").onclick=function(){ setAll(function(){return true;}); };
+$("pickNone").onclick=function(){ setAll(function(){return false;}); };
+$("pickNgoai").onclick=function(){ setAll(function(g){return g==="ngoai";}); };
+$("pickNoi").onclick=function(){ setAll(function(g){return g==="noi";}); };
+
+var size = prefs.size||20;
+(function initSizes(){
+  var box=$("sizes");
+  [10,20,30,50].forEach(function(n){
+    var b=document.createElement("button");
+    b.className="chip"+(n===size?" on":""); b.textContent=n+" câu";
+    b.onclick=function(){ size=n; [].forEach.call(box.children,function(c){c.classList.remove("on");}); b.classList.add("on"); refreshStart(); };
+    box.appendChild(b);
+  });
+})();
+$("optShuffle").checked = prefs.shuffle!==false;
+$("optFresh").checked   = prefs.fresh!==false;
+
+function poolIds(){
+  var p = DATA.questions.filter(function(q){ return chosen[q.s] && inB(q); });
+  if($("optFresh").checked) p = p.filter(function(q){ return !isMastered(q); });
+  return p;
+}
+function refreshStart(){
+  refreshProgress();
+  var picked = Object.keys(chosen).filter(function(k){ return chosen[k]; }).length;
+  var n = poolIds().length;
+  var b = $("btnStart");
+  b.disabled = n===0;
+  if(picked===0) b.textContent = "Chọn ít nhất một chuyên đề";
+  else if(n===0) b.textContent = "Đã thuộc hết phần đã chọn";
+  else b.textContent = "Bắt đầu ôn — "+Math.min(size,n)+" câu";
+}
+refreshStart();
+
+/* ---------- session ---------- */
+var S = null;
+
+function pickQuestions(){
+  var pool = poolIds();
+  pool = pool.slice().sort(function(a,b){
+    var ha=hist[hkey(a)]||{}, hb=hist[hkey(b)]||{};
+    var sa=(ha.wrong||0)*10 - (ha.ok||0)*3 - (ha.seen?0:5);
+    var sb=(hb.wrong||0)*10 - (hb.ok||0)*3 - (hb.seen?0:5);
+    if(sb!==sa) return sb-sa;
+    return Math.random()-0.5;
+  });
+  var take = pool.slice(0, Math.min(pool.length, Math.max(size*3, size)));
+  return shuffle(take).slice(0,size).map(function(q){return q.i;});
+}
+
+function startSession(){
+  var ids = pickQuestions();
+  if(!ids.length) return;
+  S = { ids:ids, queue:ids.slice(), round:1, wrongCount:0, wrongIds:[],
+        shuffle:$("optShuffle").checked, done:{} };
+  prefs={subs:Object.keys(chosen).filter(function(k){return chosen[k];}),size:size,batch:activeB,
+         shuffle:$("optShuffle").checked,fresh:$("optFresh").checked};
+  save(K_PREF,prefs);
+  persist();
+  renderRound();
+}
+function persist(){ save(K_STATE, S ? {ids:S.ids,queue:S.queue,round:S.round,wrongCount:S.wrongCount,wrongIds:S.wrongIds,shuffle:S.shuffle} : null); }
+
+/* ---------- render round ---------- */
+var answered = {};   // qid -> true within current round
+
+function qById(i){ return DATA.questions[i] && DATA.questions[i].i===i ? DATA.questions[i]
+  : DATA.questions.filter(function(q){return q.i===i;})[0]; }
+
+function renderRound(){
+  answered = {};
+  $("setup").classList.add("hidden");
+  $("done").classList.add("hidden");
+  $("quiz").classList.remove("hidden");
+  $("barStats").classList.remove("hidden");
+  $("brandSub").textContent = "· vòng "+S.round;
+
+  $("roundTitle").textContent = S.round===1 ? "Vòng 1 — "+S.queue.length+" câu"
+                                            : "Vòng "+S.round+" — "+S.queue.length+" câu làm lại";
+  $("roundNote").textContent = S.round===1
+    ? "Trả lời hết bên dưới. Đúng là xong; sai thì câu đó quay lại ở vòng sau. Câu tự luận thì tự chấm sau khi xem gợi ý."
+    : "Đây là những câu bạn còn sai. Đúng hết là kết thúc bài ôn.";
+
+  var list=$("qlist"); list.innerHTML="";
+  S.queue.forEach(function(id,n){ list.appendChild(buildCard(qById(id), n+1)); });
+  updateBar();
+  window.scrollTo(0,0);
+  showDock(false);
+}
+
+function starBtn(q){
+  var b=document.createElement("button");
+  b.type="button"; b.className="star"+(isStar(q)?" on":"");
+  b.title="Lưu ý câu này để xem lại";
+  b.textContent=isStar(q)?"★":"☆";
+  b.onclick=function(ev){
+    ev.stopPropagation();
+    var on=toggleStar(q);
+    b.className="star"+(on?" on":""); b.textContent=on?"★":"☆";
+  };
+  return b;
+}
+
+function buildCard(q,n){
+  if(q.t==="essay") return buildEssayCard(q,n);
+  var card=document.createElement("div");
+  card.className="q"; card.dataset.qid=q.i;
+  var multi = q.a.length>1;
+  var opts = q.o.slice();
+  if(S.shuffle) opts = shuffle(opts.slice());
+
+  var html='<div class="q-top"><span class="q-num">Câu '+n+'</span>'+
+           '<span class="q-sub">'+esc(SUBNAME[q.s]||"")+bTag(q)+'</span></div>'+
+           '<p class="q-text">'+esc(q.q)+'</p>';
+  if(multi) html+='<div class="q-multi">Chọn '+q.a.length+' đáp án</div>';
+  card.innerHTML=html;
+  card.querySelector(".q-top").appendChild(starBtn(q));
+
+  var wrapOpts=document.createElement("div");
+  opts.forEach(function(pair){
+    var b=document.createElement("button");
+    b.className="opt"; b.type="button"; b.dataset.key=pair[0];
+    b.innerHTML='<span class="k">'+esc(pair[0])+'</span><span>'+esc(pair[1])+'</span>';
+    wrapOpts.appendChild(b);
+  });
+  card.appendChild(wrapOpts);
+
+  var picked={};
+  var checkBtn=null;
+  if(multi){
+    checkBtn=document.createElement("button");
+    checkBtn.className="check"; checkBtn.textContent="Kiểm tra"; checkBtn.disabled=true;
+    card.appendChild(checkBtn);
+    checkBtn.onclick=function(){ grade(); };
+  }
+
+  wrapOpts.addEventListener("click",function(ev){
+    var b=ev.target.closest(".opt"); if(!b||card.classList.contains("locked")) return;
+    var k=b.dataset.key;
+    if(multi){
+      if(picked[k]){ delete picked[k]; b.classList.remove("pick"); }
+      else { picked[k]=1; b.classList.add("pick"); }
+      checkBtn.disabled = Object.keys(picked).length!==q.a.length;
+    } else {
+      picked={}; picked[k]=1; grade();
+    }
+  });
+
+  function grade(){
+    card.classList.add("locked");
+    var keys=Object.keys(picked);
+    var ok = keys.length===q.a.length && keys.every(function(k){ return q.a.indexOf(k)>=0; });
+    [].forEach.call(wrapOpts.children,function(b){
+      var k=b.dataset.key;
+      b.classList.remove("pick");
+      if(q.a.indexOf(k)>=0) b.classList.add("ok");
+      else if(picked[k]) b.classList.add("no");
+    });
+    if(checkBtn) checkBtn.remove();
+    card.classList.add(ok?"done-right":"done-wrong");
+
+    var v=document.createElement("div");
+    v.className="verdict "+(ok?"r":"w");
+    var head = ok ? '<span class="tag">Đúng.</span> Đã thuộc — loại khỏi kho câu chưa thuộc.'
+                  : '<span class="tag">Sai.</span> Đáp án: '+esc(q.a.join(", "))+'. Câu này sẽ quay lại ở vòng sau.';
+    v.innerHTML=head + (q.e ? '<p class="why">'+esc(q.e)+'</p>' : '');
+    card.appendChild(v);
+
+    var h=hist[hkey(q)]||{seen:0,ok:0,wrong:0};
+    h.seen++;
+    if(ok){ h.ok++; h.m=1; } else { h.wrong++; h.m=0; }
+    hist[hkey(q)]=h; save(K_HIST,hist);
+
+    answered[q.i]= ok ? "ok" : "wrong";
+    if(!ok){ S.wrongCount++; if(S.wrongIds.indexOf(q.i)<0) S.wrongIds.push(q.i); }
+    persist();
+    updateBar();
+    maybeFinishRound();
+  }
+  return card;
+}
+
+function buildEssayCard(q,n){
+  var card=document.createElement("div");
+  card.className="q"; card.dataset.qid=q.i;
+  card.innerHTML='<div class="q-top"><span class="q-num">Câu '+n+'</span>'+
+    '<span class="q-sub">'+esc(SUBNAME[q.s]||"")+bTag(q)+'</span></div>'+
+    '<p class="q-text">'+esc(q.q)+'</p>';
+  card.querySelector(".q-top").appendChild(starBtn(q));
+
+  var btn=document.createElement("button");
+  btn.className="reveal"; btn.type="button";
+  btn.textContent = q.ans ? "Xem gợi ý trả lời" : "Xem ghi chú";
+  card.appendChild(btn);
+
+  btn.onclick=function(){
+    btn.remove();
+    var a=document.createElement("div");
+    if(q.ans){ a.className="ans"; a.textContent=q.ans; }
+    else { a.className="ans empty"; a.textContent="Câu này chưa có gợi ý trả lời. Tự chuẩn bị ý của bạn, rồi tự chấm xem đã nắm được chưa."; }
+    card.appendChild(a);
+    var row=document.createElement("div");
+    row.className="selfrow";
+    row.innerHTML='<button type="button" class="self-ok">Đã thuộc</button>'+
+                  '<button type="button" class="self-no">Chưa thuộc, ôn lại</button>';
+    card.appendChild(row);
+    row.querySelector(".self-ok").onclick=function(){ grade(true); };
+    row.querySelector(".self-no").onclick=function(){ grade(false); };
+  };
+
+  function grade(ok){
+    if(card.classList.contains("locked")) return;
+    card.classList.add("locked");
+    var row=card.querySelector(".selfrow"); if(row) row.remove();
+    card.classList.add(ok?"done-right":"done-wrong");
+    var v=document.createElement("div");
+    v.className="verdict "+(ok?"r":"w");
+    v.innerHTML = ok ? '<span class="tag">Đã thuộc.</span> Loại khỏi kho câu chưa thuộc.'
+                     : '<span class="tag">Chưa thuộc.</span> Câu này sẽ quay lại ở vòng sau.';
+    card.appendChild(v);
+    var h=hist[hkey(q)]||{seen:0,ok:0,wrong:0};
+    h.seen++; if(ok){ h.ok++; h.m=1; } else { h.wrong++; h.m=0; }
+    hist[hkey(q)]=h; save(K_HIST,hist);
+    answered[q.i]= ok ? "ok" : "wrong";
+    if(!ok){ S.wrongCount++; if(S.wrongIds.indexOf(q.i)<0) S.wrongIds.push(q.i); }
+    persist(); updateBar(); maybeFinishRound();
+  }
+  return card;
+}
+
+function updateBar(){
+  var total=S.queue.length, done=Object.keys(answered).length;
+  var right=0,wrong=0;
+  for(var k in answered){ if(answered[k]==="ok") right++; else wrong++; }
+  $("stLeft").textContent=total-done;
+  $("stRight").textContent=right;
+  $("stWrong").textContent=wrong;
+  $("track").style.width=(total?done/total*100:0)+"%";
+}
+
+function maybeFinishRound(){
+  if(Object.keys(answered).length < S.queue.length) return;
+  var stillWrong = S.queue.filter(function(id){ return answered[id]==="wrong"; });
+  if(stillWrong.length){
+    showDock(true, "Còn <b>"+stillWrong.length+"</b> câu trả lời sai. Ôn lại cho đến khi đúng hết.",
+      "Ôn lại "+stillWrong.length+" câu", function(){
+        S.queue=shuffle(stillWrong); S.round++; persist(); renderRound();
+      });
+  } else {
+    showDock(true, "Bạn đã trả lời đúng toàn bộ.", "Kết thúc bài ôn", finish);
+  }
+}
+
+function showDock(on, text, btn, fn){
+  var d=$("dock");
+  if(!on){ d.classList.remove("show"); return; }
+  $("dockText").innerHTML=text;
+  $("dockBtn").textContent=btn;
+  $("dockBtn").onclick=fn;
+  d.classList.add("show");
+}
+
+function finish(){
+  showDock(false);
+  $("quiz").classList.add("hidden");
+  $("barStats").classList.add("hidden");
+  $("brandSub").textContent="";
+  $("track").style.width="100%";
+  $("done").classList.remove("hidden");
+  $("tQ").textContent=S.ids.length;
+  $("tR").textContent=S.round;
+  $("tW").textContent=S.wrongCount;
+  var tt=tally(qOfBatch(activeB)); var totM=tt.m, totN=tt.n;
+  $("doneNote").textContent = S.wrongCount===0
+    ? "Đúng hết ngay vòng đầu."
+    : "Bạn đã làm lại tới khi đúng toàn bộ "+S.ids.length+" câu.";
+  $("doneNote").textContent += " Tiến độ: "+totM+"/"+totN+" câu đã thuộc.";
+  var box=$("hardBox"), ul=$("hardList"); ul.innerHTML="";
+  if(S.wrongIds.length){
+    box.classList.remove("hidden");
+    S.wrongIds.forEach(function(id){
+      var q=qById(id); if(!q) return;
+      var li=document.createElement("li");
+      li.textContent=q.q+(q.a?("  → "+q.a.join(", ")):"");
+      ul.appendChild(li);
+    });
+  } else box.classList.add("hidden");
+  S=null; persist();
+  window.scrollTo(0,0);
+}
+
+/* ---------- nav ---------- */
+$("btnStart").onclick=startSession;
+$("btnAgain").onclick=function(){ startSession(); };
+$("btnHome").onclick=goHome;
+$("brand").onclick=function(){ if(S && Object.keys(answered).length){ if(!confirm("Thoát lượt đang làm?")) return; } goHome(); };
+function goHome(){
+  S=null; persist(); showDock(false);
+  $("quiz").classList.add("hidden"); $("done").classList.add("hidden");
+  $("setup").classList.remove("hidden"); $("barStats").classList.add("hidden");
+  $("brandSub").textContent=""; $("track").style.width="0";
+  refreshStart(); checkResume(); window.scrollTo(0,0);
+}
+
+/* ---------- resume ---------- */
+function checkResume(){
+  var st=load(K_STATE,null);
+  var box=$("resumeBox");
+  if(st && st.queue && st.queue.length){
+    st.queue=st.queue.filter(function(i){ return qById(i); });
+    st.ids=(st.ids||[]).filter(function(i){ return qById(i); });
+    if(!st.queue.length){ save(K_STATE,null); box.classList.add("hidden"); return; }
+    box.classList.remove("hidden");
+    $("resumeText").innerHTML="Bạn còn một lượt dở: vòng "+st.round+", <b>"+st.queue.length+"</b> câu chưa xong.";
+    $("btnResume").onclick=function(){
+      S={ids:st.ids,queue:st.queue,round:st.round,wrongCount:st.wrongCount||0,
+         wrongIds:st.wrongIds||[],shuffle:st.shuffle!==false,done:{}};
+      box.classList.add("hidden"); renderRound();
+    };
+    $("btnDrop").onclick=function(){ save(K_STATE,null); box.classList.add("hidden"); };
+  } else box.classList.add("hidden");
+}
+checkResume();
+
+function ioShow(txt,msg,editable){
+  var b=$("ioBox"), m=$("ioMsg");
+  b.classList.remove("hidden"); b.value=txt||""; b.readOnly=!editable;
+  m.classList.remove("hidden"); m.textContent=msg;
+}
+$("btnMarkAll").onclick=function(){
+  var list=qOfBatch(activeB);
+  var lab = activeB==="all" ? "tất cả các đợt" : bName(activeB);
+  if(!confirm("Đánh dấu toàn bộ "+list.length+" câu của "+lab+" là ĐÃ THUỘC?")) return;
+  list.forEach(function(q){
+    var k=hkey(q), h=hist[k]||{seen:0,ok:0,wrong:0};
+    h.m=1; if(!h.seen){ h.seen=1; h.ok=1; }
+    hist[k]=h;
+  });
+  save(K_HIST,hist); refreshStart();
+  ioShow("", "Đã đánh dấu "+list.length+" câu là đã thuộc.", false);
+  $("ioBox").classList.add("hidden");
+};
+$("btnExport").onclick=function(){
+  ioShow(JSON.stringify(hist), "Chép toàn bộ đoạn trên và lưu lại. Dán vào ô này ở máy khác rồi bấm Nhập tiến độ.", false);
+  $("ioBox").select && $("ioBox").select();
+};
+$("btnImport").onclick=function(){
+  var b=$("ioBox");
+  if(b.classList.contains("hidden") || b.readOnly || !b.value.trim()){
+    ioShow("", "Dán đoạn tiến độ đã xuất vào ô bên dưới, rồi bấm Nhập tiến độ lần nữa.", true);
+    b.focus(); return;
+  }
+  try{
+    var inc=JSON.parse(b.value);
+    var n=0;
+    for(var k in inc){ if(k==="__v") continue; var v=inc[k]; if(v&&typeof v==="object"){ hist[k]=v; n++; } }
+    hist.__v="3"; save(K_HIST,hist);
+    b.classList.add("hidden"); b.value="";
+    refreshStart();
+    $("ioMsg").textContent="Đã nhập "+n+" câu vào tiến độ.";
+  }catch(e){ $("ioMsg").textContent="Đoạn vừa dán không đúng định dạng. Kiểm tra lại xem đã chép đủ chưa."; }
+};
+$("btnReset").onclick=function(){
+  if(!confirm("Xoá toàn bộ tiến độ đã thuộc và lịch sử làm bài?")) return;
+  hist={__v:"3"}; save(K_HIST,hist); save(K_STATE,null);
+  refreshStart(); checkResume();
+};
+})();
+</script>
+</body>
+</html>
